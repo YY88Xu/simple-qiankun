@@ -1,0 +1,52 @@
+<!--
+ * @Author: shanyu
+ * @Date: 2022-03-24 21:05:37
+ * @LastEditTime: 2022-03-24 21:23:59
+ * @LastEditors: shanyu
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<script>
+class EventHub{
+  constructor(){
+    this.cache = {}
+  }
+  // 订阅
+  add(eventName, fn){
+    this.cache[eventName] = this.cache[eventName] || []
+    this.cache[eventName].push(fn)
+  }
+  // 取消
+  off(eventName, fn){
+    const fns = this.cache[eventName] || []
+    const index = fns.indexOf(fn)
+    if(index>=0){
+      this.cache[eventName].splice(index, 1)
+    }
+  }
+  // 发布
+  emit(eventName, data){
+    const fns = this.cache[eventName] || []
+    for(let fn of fns){
+      fn(data)
+    }
+  }
+}
+
+const eventHub = new EventHub()
+function fn(data){
+  console.log("fn receive "+data)
+}
+eventHub.add("test", fn)
+eventHub.emit("test", "may24")
+</script> 
+</body>
+</html>
