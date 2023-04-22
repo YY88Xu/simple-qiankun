@@ -1,0 +1,32 @@
+<!--
+ * @Author: shanyu
+ * @Date: 2022-03-25 17:00:23
+ * @LastEditTime: 2022-03-25 17:12:30
+ * @LastEditors: shanyu
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="custom">CustomEvent</div>
+<script>
+  const newEvent = new CustomEvent('build', {detail: {name: 'Amanda'}})
+  document.addEventListener("build", e=>{
+    console.log(e.detail)
+  })
+  document.dispatchEvent(newEvent)
+
+  const div = document.getElementById('custom')
+  div.addEventListener("build", e=>{
+    alert(e.detail)
+  })
+  div.dispatchEvent(newEvent)
+</script> 
+</body>
+</html>
